@@ -193,3 +193,11 @@ body {
 .btn-secondary:hover {
     background-color: #cbd5e1;
 }
+
+
+.footer {
+    background-color: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 40px 0;
+}
