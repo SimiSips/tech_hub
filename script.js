@@ -4,15 +4,15 @@ const products = [
         name: "iPhone 15 Pro",
         price: 999,
         category: "phones",
-        image: "https://via.placeholder.com/300x200/3b82f6/white?text=iPhone+15+Pro",
+        image: "https://www.istore.co.za/media/catalog/product/cache/7cbfd4bf9761b066f119e95af17e67c5/i/p/iphone_15_pro_black_titanium_pdp_image_position_3.jpg",
         description: "The latest iPhone with amazing camera and performance"
     },
     {
         id: 2,
-        name: "MacBook Air",
+        name: "MacBook Air 2022",
         price: 1199,
         category: "laptops", 
-        image: "https://via.placeholder.com/300x200/10b981/white?text=MacBook+Air",
+        image: "https://istorepreowned.co.za/cdn/shop/files/MacBook_Air_M1_2020_-_Space_Grey.png?v=1699424775",
         description: "Lightweight laptop perfect for work and creativity"
     },
     {
@@ -20,7 +20,7 @@ const products = [
         name: "AirPods Pro",
         price: 249,
         category: "accessories",
-        image: "https://via.placeholder.com/300x200/f59e0b/white?text=AirPods+Pro", 
+        image: "https://m.media-amazon.com/images/I/61SUj2aKoEL.jpg",
         description: "Wireless earbuds with noise cancellation"
     },
     {
@@ -28,7 +28,7 @@ const products = [
         name: "Samsung Galaxy S24",
         price: 899,
         category: "phones",
-        image: "https://via.placeholder.com/300x200/8b5cf6/white?text=Galaxy+S24",
+        images: "https://shop.vodacom.co.za/media/catalog/product/s/a/samsung_galaxy_s24_5g_256gb_-_main_1_.jpg?store=cbu&image-type=image",
         description: "Android phone with incredible features"
     },
     {
@@ -36,7 +36,7 @@ const products = [
         name: "Dell Laptop",
         price: 799,
         category: "laptops",
-        image: "https://via.placeholder.com/300x200/06b6d4/white?text=Dell+Laptop",
+        image: "https://img.evetech.co.za/repository/mobilev1/Laptop/ProImages/dell-inspiron-15-5518-11th-gen-i5-touchscreen-laptop-1000px-v003.webp",
         description: "Reliable laptop for everyday computing"
     },
     {
@@ -44,7 +44,7 @@ const products = [
         name: "Wireless Mouse",
         price: 49,
         category: "accessories", 
-        image: "https://via.placeholder.com/300x200/ec4899/white?text=Wireless+Mouse",
+        image: "https://m.media-amazon.com/images/I/61Mk3YqYHpL.jpg",
         description: "Ergonomic wireless mouse for productivity"
     }
 ];
@@ -69,5 +69,53 @@ function formatPrice(price) {
 
 console.log('JavaScript Loades successfully!');
 console.log('We have', products.length, 'products.');
+
+function createProductCard(product) {
+    return `
+        <div class="product-card">
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
+                <div class="product-price">
+                    ${formatPrice(product.price)} 
+                </div>
+                <div class="product-actions">
+                    <button class="btn btn-primary btn-small" onclick="addToCart(${product.id})">
+                        Add to Cart
+                    </button>
+                    <button class="btn btn-secondary btn-small" onclick="viewProduct(${product.id})">
+                        View Details
+                    </button>
+                </div>
+            </div>
+        </div> `
+}
+
+function displayProducts(productsToShow = products) {
+    if (productsGrid) {
+        console.log('Displaying products... on products page');
+        productsGrid.innerHTML =  productsToShow.map(createProductCard).join('');
+    } else {
+        console.log('Not on products page, skipping display.');
+    }
+}
+
+function addToCart(productId) {
+    alert(`Product ${productId} added to cart!`);
+}
+
+function viewProduct(productId) {
+    const product
+        = products.find(prod => prod.id === productId);
+    alert('Product: ' + product.name +
+        '\nPrice: ' + formatPrice(product.price) +
+        '\nDescription: ' + product.description);
+}
+
+document.addEventListener('DOMContentLoaded', function (){
+    console.log('Page loaded, displaying products...');
+    displayProducts(products);
+})
 
 
