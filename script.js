@@ -113,9 +113,38 @@ function viewProduct(productId) {
         '\nDescription: ' + product.description);
 }
 
+function setupFilters() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function(){
+            // Remove active from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to the clicked button
+            this.classList.add('active');
+            // Get the category from the buttons data-category attribute
+            const category = this.getAttribute('data-category');
+
+            //Filter products based on category
+            let filteredProducts;
+            if (category === 'all') {
+                filteredProducts = products
+            } else {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+
+            displayProducts(filteredProducts);
+
+            console.log('Showing', filteredProducts.length, 'products in category: ', category);
+        });
+    });
+}
+
+
 document.addEventListener('DOMContentLoaded', function (){
     console.log('Page loaded, displaying products...');
-    displayProducts(products);
+    displayProducts();
+    setupFilters();
 })
 
 
